@@ -2,6 +2,27 @@
 const heartsContainer =
     document.querySelector(".floating-hearts");
 
+const backgroundMusic =
+    document.getElementById("backgroundMusic");
+
+function startBackgroundMusic() {
+    backgroundMusic.play().catch(() => {
+        // Some browsers require a fresh user interaction before playing audio.
+    });
+}
+
+backgroundMusic.addEventListener("ended", () => {
+    backgroundMusic.src = backgroundMusic.src.endsWith("audio1.mpeg")
+        ? "audio2.mpeg"
+        : "audio1.mpeg";
+    backgroundMusic.load();
+    startBackgroundMusic();
+});
+
+startBackgroundMusic();
+document.addEventListener("pointerdown", startBackgroundMusic, { once: true });
+document.addEventListener("keydown", startBackgroundMusic, { once: true });
+
 const heartSymbols = [
     "❤️",
     "💕",
